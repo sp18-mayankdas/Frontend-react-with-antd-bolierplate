@@ -1,1 +1,14 @@
+@layer theme, base, antd, components, utilities;
 @import 'tailwindcss';
+@import 'tailwindcss/utilities' layer(utilities);
+
+/* Base styles for the design system */
+:root {
+  /* --font-base: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-dmSans: 'DM Sans', sans-serif; */
+
+  font-family: var(--font-base);
+  line-height: 1.5;
+  font-weight: 400;
+}

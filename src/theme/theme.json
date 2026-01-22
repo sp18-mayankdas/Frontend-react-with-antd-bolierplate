@@ -1,0 +1,147 @@
+{
+  "color": {
+    "primary": "#1c2fc9",
+    "primary-10": "#d2d5f4",
+    "primary-20": "#a3aed0",
+    "primary-40": "#a4ace9",
+    "primary-60": "#7782df",
+    "primary-70": "#606dd9",
+    "primary-80": "#4959d4",
+    "primary-100": "#5925dc",
+    "primary-2": "#2b3674",
+    "primary-gradient-1": "#8591f4",
+    "black-1": "#cfd3d4",
+    "black-2": "#abafb1",
+    "black-4": "#5e6366",
+    "black-10": "#1c1d22",
+    "black-20": "#a6a8b1",
+    "black-30": "#8b8d97",
+    "black-40": "#6e7079",
+    "black-50": "#53545c",
+    "black-60": "#45464e",
+    "black-90": "#2c2d33",
+    "black-text": "#081021",
+    "secondary-100": "#9747ff",
+    "gray-1": "#292d30",
+    "background": "#f4f5fa",
+    "background-secondary": "#c7d3fd",
+    "background-300": "#fbfbfb",
+    "error": "#ff4d4f",
+    "grey-secondary-300": "#f4f7fe",
+    "grey-secondary-900": "#2b3674",
+    "border-light": "#e2e8f0",
+    "bg-main": "#f1f3f9",
+    "bg-avatar-default": "#f0f0f0",
+    "avatar-bg": "#f3f6fd",
+    "download-btn-bg": "#f5edff"
+  },
+  "border": {
+    "primary": "#1c2fc9",
+    "primary-10": "#0b0b0b1a",
+    "black-10": "#0000001a",
+    "black-30": "#64646466"
+  },
+  "shadow": {
+    "primary": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+    "card": "0 4px 12px rgba(0, 0, 0, 0.12)",
+    "card-hover": "0 4px 16px rgba(0, 0, 0, 0.16)"
+  },
+  "button": {
+    "primary": {
+      "color": "#1c2fc9",
+      "border": "#1c2fc9",
+      "bg": "#fff",
+      "text": "#fff",
+      "hover": "#4959d4",
+      "shadow": "none"
+    },
+    "default": {
+      "color": "#553af0",
+      "border": "#1c2fc9",
+      "bg": "#fff",
+      "text": "#1c2fc9",
+      "hover-bg": "rgba(28, 47, 201, 0.08)",
+      "hover-border": "#1c2fc9",
+      "active-bg": "rgba(28, 47, 201, 0.08)",
+      "active-border": "#1c2fc9"
+    },
+    "text": {
+      "color": "#553af0",
+      "border": "#1c2fc9",
+      "bg": "#fff",
+      "text": "#1c2fc9",
+      "hover-bg": "rgba(28, 47, 201, 0.08)",
+      "hover-border": "#1c2fc9",
+      "active-bg": "rgba(28, 47, 201, 0.08)",
+      "active-border": "#1c2fc9"
+    },
+    "link": {
+      "color": "#1c2fc9",
+      "text": "#1c2fc9",
+      "hover": "#4959d4",
+      "border": "none",
+      "shadow": "none"
+    }
+  },
+  "form": {
+    "label-color": "#5e6366",
+    "label-font-size": "12px",
+    "label-font-weight": "400",
+    "label-required-mark-color": "#1c2fc9"
+  },
+  "input": {
+    "hover-border-color": "#1c2fc9",
+    "active-bg": "transparent",
+    "active-border-color": "#1c2fc9",
+    "active-shadow": "0 0 0 2px rgba(28, 47, 201, 0.1)"
+  },
+  "select": {
+    "hover-color": "#1c2fc9",
+    "active-bg": "transparent",
+    "active-border-color": "#1c2fc9",
+    "active-outline-color": "rgba(28, 47, 201, 0.1);",
+    "option-selected-bg": "rgba(28, 47, 201, 0.16)",
+    "option-padding": "7px 12px"
+  },
+  "tabs": {
+    "item-color": "#45464e",
+    "item-active-color": "#1c2fc9",
+    "item-selected-color": "#1c2fc9",
+    "ink-bar-color": "#1c2fc9"
+  },
+  "tags": {
+    "green": "#027a48",
+    "green-bg": "#ecfdf3",
+    "grey": "#344054",
+    "grey-bg": "#f2f4f7",
+    "purple": "#9e77ed",
+    "purple-bg": "#f9f5ff",
+    "indigo": "#3538cd",
+    "indigo-bg": "#eef4ff",
+    "red": "#b42318",
+    "red-bg": "#fef3f2",
+    "blue": "#2e90fa",
+    "blue-bg": "#eff8ff",
+    "yellow": "#b54708",
+    "yellow-bg": "#fffaeb",
+    "orange": "#dc6803",
+    "orange-bg": "#fff4ed"
+  },
+  "fonts": {
+    "base": "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "poppins": "Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "dm-sans": "'DM Sans', Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
+  },
+  "switch": {
+    "handle-bg": "#1c2fc9",
+    "color-text-quaternary": "#5570f11f",
+    "color-primary": "#5570F166",
+    "color-primary-hover": "#5570F166",
+    "color-text-tertiary": "#5570F11F"
+  },
+  "table": {
+    "row-hover-bg": "#fafafa",
+    "row-selected-bg": "#fafafa",
+    "row-selected-hover-bg": "#fafafa"
+  }
+}

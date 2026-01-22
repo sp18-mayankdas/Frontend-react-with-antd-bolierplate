@@ -21,28 +21,28 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
 
     /* Path mapping */
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@/*": ["./src/*"],
-    //   "@api/*": ["./src/api/*"],
-    //   "@assets/*": ["./src/assets/*"],
-    //   "@components/*": ["./src/components/*"],
-    //   "@constants/*": ["./src/constants/*"],
-    //   "@context/*": ["./src/context/*"],
-    //   "@hooks/*": ["./src/hooks/*"],
-    //   "@lib/*": ["./src/lib/*"],
-    //   "@pages/*": ["./src/pages/*"],
-    //   "@queries/*": ["./src/queries/*"],
-    //   "@routes/*": ["./src/routes/*"],
-    //   "@services/*": ["./src/services/*"],
-    //   "@styles/*": ["./src/styles/*"],
-    //   "@theme/*": ["./src/theme/*"],
-    //   "@types/*": ["./src/types/*"],
-    //   "@utils/*": ["./src/utils/*"]
-    // }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@api/*": ["./src/api/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@context/*": ["./src/context/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@queries/*": ["./src/queries/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@services/*": ["./src/services/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   },
   "include": ["src"]
 }
