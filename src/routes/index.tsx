@@ -1,14 +1,14 @@
 import { lazy } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
-const LoginPage = lazy(() => import('@pages/login'));
-const SignUpPage = lazy(() => import('@pages/sign-up'));
+const LoginPage = lazy(() => import('@/pages/login'));
+const SignUpPage = lazy(() => import('@/pages/sign-up'));
 const ForgotPasswordPage = lazy(() => import('@pages/forgot-password'));
-const ForgotPasswordSentPage = lazy(() => import('@pages/forgot-password-sent-page'));
-const ResetPasswordPage = lazy(() => import('@pages/reset-password-page'));
-const ResetPasswordDonePage = lazy(() => import('@pages/reset-password-done-page'));
-const VerifyEmailPage = lazy(() => import('@pages/verify-email-page'));
-const NotFoundPage = lazy(() => import('@/pages/not-found-page'));
+const ForgotPasswordSentPage = lazy(() => import('@/pages/forgot-password-sent'));
+const ResetPasswordPage = lazy(() => import('@/pages/reset-password'));
+const ResetPasswordDonePage = lazy(() => import('@/pages/reset-password-done'));
+const VerifyEmailPage = lazy(() => import('@/pages/verify-email'));
+const NotFoundPage = lazy(() => import('@/pages/not-found'));
 
 export const authRoutes: RouteObject[] = [
   {
