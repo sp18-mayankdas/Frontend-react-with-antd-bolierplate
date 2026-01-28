@@ -1,12 +1,25 @@
-import { Button } from './components';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Suspense } from 'react';
+import { authRoutes, notFoundRoute } from './routes';
+import { AuthGate } from './routes/gates';
+import { LoadingSpinner } from './components';
 
 const AppRouter = () => {
-  return (
-    <>
-      <h1 className="text-red-500">App</h1>
+  const routes = [
+    {
+      path: '/',
+      element: <AuthGate />,
+      children: [...authRoutes],
+    },
+    notFoundRoute,
+  ];
 
-      <Button className="bg-red-100 text-red-500 px-8 rounded-full">Test</Button>
-    </>
+  const router = createBrowserRouter(routes);
+
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 };
 
