@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
 import { authRoutes, notFoundRoute } from './routes';
-import { AuthGate } from './routes/gates';
+import { AuthGate, PrivateGate } from './routes/gates';
 import { LoadingSpinner } from './components';
 
 const AppRouter = () => {
@@ -10,6 +10,11 @@ const AppRouter = () => {
       path: '/',
       element: <AuthGate />,
       children: [...authRoutes],
+    },
+    {
+      path: 'dashboard',
+      element: <PrivateGate />,
+      children: [],
     },
     notFoundRoute,
   ];
