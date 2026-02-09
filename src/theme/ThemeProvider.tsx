@@ -1,110 +1,178 @@
 import { App as AntdApp, ConfigProvider, theme as antdTheme, type ThemeConfig } from 'antd';
 import { StyleProvider } from '@ant-design/cssinjs';
 import React, { useMemo } from 'react';
+import themeConfig from './theme.json';
 import { type Theme } from './types';
-import theme from './theme.json';
 
 type ThemeProviderProps = {
   theme?: Theme;
   children: React.ReactNode;
 };
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children }) => {
+  // Use provided theme or fallback to default theme
+  const activeTheme = theme || (themeConfig as Theme);
+
   const antdTokens: ThemeConfig = useMemo(
     () => ({
       algorithm: antdTheme.defaultAlgorithm,
       token: {
-        // Global tokens (used by other components like Input, Select, etc.)
-        colorPrimary: theme.color.primary,
-        colorError: theme.color.error,
-        fontFamily: theme.fonts.base,
+        // Color tokens
+        colorPrimary: activeTheme.color.primary,
+        colorError: activeTheme.color.error,
+        colorSuccess: activeTheme.color.success,
+        colorWarning: activeTheme.color.warning,
+        colorInfo: activeTheme.color.info,
+        colorTextBase: activeTheme.color['black-text'],
+        colorBgBase: activeTheme.color.surface,
+        colorBorder: activeTheme.color.border,
+        colorBgContainer: activeTheme.color.surface,
+        colorBgLayout: activeTheme.color.background,
+
+        // Font tokens
+        fontFamily: activeTheme.fonts.base,
+
+        // Border radius
+        borderRadius: activeTheme.borderRadius.md,
+        borderRadiusLG: activeTheme.borderRadius.lg,
+        borderRadiusSM: activeTheme.borderRadius.sm,
+
+        // Spacing
+        padding: activeTheme.spacing.md,
+        paddingLG: activeTheme.spacing.lg,
+        paddingSM: activeTheme.spacing.sm,
+        paddingXS: activeTheme.spacing.xs,
+
+        // Shadows
+        boxShadow: activeTheme.shadow.md,
+        boxShadowSecondary: activeTheme.shadow.sm,
       },
       components: {
         Button: {
           // General
-          iconGap: 10,
           fontWeight: 500,
-          fontFamily: theme.fonts.base,
-          // Size: large
-          borderRadiusLG: 12,
-          paddingInlineLG: 20,
-          controlHeightLG: 42,
-          paddingInline: 30,
-          contentFontSizeLG: 14,
+          fontFamily: activeTheme.fonts.base,
 
-          // Primary button tokens (type="primary")
-          colorPrimary: theme.button.primary.color,
-          colorPrimaryHover: theme.button.primary.hover,
-          primaryShadow: theme.button.primary.shadow,
-          primaryActiveBg: theme.button.primary.hover,
+          // Size tokens
+          borderRadius: activeTheme.borderRadius.lg,
+          borderRadiusLG: activeTheme.borderRadius.lg,
+          borderRadiusSM: activeTheme.borderRadius.md,
 
-          // Default/Secondary button tokens (type="default")
-          defaultBg: theme.button.default.bg,
-          defaultBorderColor: theme.button.default.border,
-          defaultColor: theme.button.default.color,
-          defaultHoverBg: theme.button.default['hover-bg'],
-          defaultHoverBorderColor: theme.button.default['hover-border'],
-          defaultActiveBg: theme.button.default['active-bg'],
-          defaultActiveBorderColor: theme.button.default['active-border'],
+          controlHeight: 40,
+          controlHeightLG: 48,
+          controlHeightSM: 32,
 
-          // Text/Ghost button tokens (type="text")
-          textHoverBg: theme.button.text['hover-bg'],
-          textHoverColor: theme.button.text.text,
-          textActiveBg: theme.button.text['active-bg'],
-          textActiveColor: theme.button.text.text,
+          paddingInline: 20,
+          paddingInlineLG: 24,
+          paddingInlineSM: 16,
 
-          // Link button tokens (type="link")
-          colorLink: theme.button.link.color,
-          colorLinkHover: theme.button.link.hover,
-          colorLinkActive: 'var(--color-primary-80)',
+          contentFontSize: 14,
+          contentFontSizeLG: 16,
+          contentFontSizeSM: 14,
 
-          //Icon only button tokens
-          onlyIconSizeSM: 16,
-          onlyIconSize: 18,
-          onlyIconSizeLG: 26,
+          // Primary button
+          colorPrimary: activeTheme.button.primary.bg,
+          colorPrimaryHover: activeTheme.button.primary['hover-bg'],
+          colorPrimaryActive: activeTheme.button.primary['active-bg'],
+          colorPrimaryBorder: activeTheme.button.primary.border,
+          primaryColor: activeTheme.button.primary.text,
+          primaryShadow: 'none',
+
+          // Default button
+          defaultBg: activeTheme.button.default.bg,
+          defaultColor: activeTheme.button.default.text,
+          defaultBorderColor: activeTheme.button.default.border,
+          defaultHoverBg: activeTheme.button.default['hover-bg'],
+          defaultHoverColor: activeTheme.button.default.text,
+          defaultHoverBorderColor: activeTheme.button.default['hover-border'],
+          defaultActiveBg: activeTheme.button.default['active-bg'],
+          defaultActiveColor: activeTheme.button.default.text,
+          defaultActiveBorderColor: activeTheme.button.default['active-border'],
+
+          // Text button
+          textHoverBg: activeTheme.button.text['hover-bg'],
+          textHoverColor: activeTheme.button.text.text,
+          textActiveBg: activeTheme.button.text['active-bg'],
+          textActiveColor: activeTheme.button.text.text,
+
+          // Link button
+          colorLink: activeTheme.button.link.text,
+          colorLinkHover: activeTheme.button.link['hover-text'],
+          colorLinkActive: activeTheme.button.link['active-text'],
+
+          // Danger button
+          colorError: activeTheme.button.danger.bg,
+          colorErrorHover: activeTheme.button.danger['hover-bg'],
+          colorErrorActive: activeTheme.button.danger['active-bg'],
+          colorErrorBorderHover: activeTheme.button.danger['hover-border'],
+          dangerColor: activeTheme.button.danger.text,
+
+          // Disabled state
+          colorBgContainerDisabled: activeTheme.button.primary['disabled-bg'],
+          colorTextDisabled: activeTheme.button.primary['disabled-text'],
+          borderColorDisabled: activeTheme.button.primary['disabled-border'],
         },
+
         Input: {
-          activeBg: 'var(--input-active-bg)',
-          activeBorderColor: 'var(--input-active-border-color)',
-          hoverBorderColor: 'var(--input-hover-border-color)',
-          activeShadow: 'var(--input-active-shadow)',
+          colorBgContainer: activeTheme.input.bg,
+          colorText: activeTheme.input.text,
+          colorBorder: activeTheme.input.border,
+          colorTextPlaceholder: activeTheme.input.placeholder,
+          hoverBorderColor: activeTheme.input['hover-border'],
+          activeBorderColor: activeTheme.input['focus-border'],
+          activeShadow: activeTheme.input['focus-shadow'],
+          errorActiveShadow: activeTheme.input['error-shadow'],
+          colorBgContainerDisabled: activeTheme.input['disabled-bg'],
+          colorTextDisabled: activeTheme.input['disabled-text'],
         },
+
         Select: {
-          activeBg: 'var(--select-active-bg)',
-          activeBorderColor: 'var(--select-active-border-color)',
-          hoverBorderColor: 'var(--select-hover-color)',
-          activeShadow: 'var(--select-active-shadow)',
-          activeOutlineColor: 'var(--select-active-outline-color)',
-          optionPadding: 'var(--select-option-padding)',
-          optionSelectedBg: 'var(--select-option-selected-bg)',
+          colorBgContainer: activeTheme.select.bg,
+          colorText: activeTheme.select.text,
+          colorBorder: activeTheme.select.border,
+          colorTextPlaceholder: activeTheme.select.placeholder,
+          hoverBorderColor: activeTheme.select['hover-border'],
+          activeBorderColor: activeTheme.select['focus-border'],
+          activeShadow: activeTheme.select['focus-shadow'],
+          optionSelectedBg: activeTheme.select['option-selected-bg'],
+          optionActiveBg: activeTheme.select['option-hover-bg'],
+          optionPadding: activeTheme.select['option-padding'],
+          colorBgContainerDisabled: activeTheme.select['disabled-bg'],
+          colorTextDisabled: activeTheme.select['disabled-text'],
         },
+
         Form: {
-          labelColor: 'var(--form-label-color)',
-          labelRequiredMarkColor: 'var(--form-label-required-mark-color)',
+          labelColor: activeTheme.form['label-color'],
+          // labelFontSize: formLabelFontSize,
+          labelRequiredMarkColor: activeTheme.form['label-required-mark-color'],
         },
+
         Tabs: {
-          itemColor: 'var(--tabs-item-color)',
-          // itemHoverColor: "var(--tabs-item-hover-color)",
-          itemSelectedColor: 'var(--tabs-item-selected-color)',
-          itemActiveColor: 'var(--tabs-item-active-color)',
-          inkBarColor: 'var(--tabs-ink-bar-color)',
+          itemColor: activeTheme.tabs['item-color'],
+          itemHoverColor: activeTheme.tabs['item-hover-color'],
+          itemSelectedColor: activeTheme.tabs['item-selected-color'],
+          itemActiveColor: activeTheme.tabs['item-active-color'],
+          inkBarColor: activeTheme.tabs['ink-bar-color'],
         },
+
         Switch: {
-          handleBg: 'var(--color-primary)',
-          colorTextQuaternary: '#5570f11f',
-          //For track background when active
-          colorPrimary: '#5570F166',
-          colorPrimaryHover: '#5570F166',
-          colorTextTertiary: '#5570F11F',
+          handleBg: activeTheme.switch['handle-bg'],
+          colorPrimary: activeTheme.switch['checked-bg'],
+          colorPrimaryHover: activeTheme.switch['hover-bg'],
+          colorTextQuaternary: activeTheme.switch['unchecked-bg'],
+          colorTextTertiary: activeTheme.switch['unchecked-bg'],
         },
+
         Table: {
-          rowHoverBg: '#fafafa',
-          rowSelectedBg: '#fafafa',
-          rowSelectedHoverBg: '#fafafa',
+          headerBg: activeTheme.table['header-bg'],
+          rowHoverBg: activeTheme.table['row-hover-bg'],
+          rowSelectedBg: activeTheme.table['row-selected-bg'],
+          rowSelectedHoverBg: activeTheme.table['row-selected-hover-bg'],
+          borderColor: activeTheme.table['border-color'],
         },
       },
     }),
-    []
+    [activeTheme]
   );
 
   return (

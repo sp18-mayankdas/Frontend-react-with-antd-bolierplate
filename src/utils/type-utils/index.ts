@@ -128,6 +128,7 @@ export function isJsonString(val: any) {
   try {
     JSON.parse(val);
   } catch (err) {
+    console.error(err);
     return false;
   }
   return true;

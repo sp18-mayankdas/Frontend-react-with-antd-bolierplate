@@ -10,7 +10,7 @@ const ResetPasswordDonePage = lazy(() => import('@/pages/reset-password-done'));
 const VerifyEmailPage = lazy(() => import('@/pages/verify-email'));
 const NotFoundPage = lazy(() => import('@/pages/not-found'));
 
-export const authRoutes: RouteObject[] = [
+export const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <LoginPage />,

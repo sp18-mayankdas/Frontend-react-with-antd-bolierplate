@@ -1,13 +1,27 @@
 import { Form } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { AuthLayout, Button, Checkbox, Input, Item } from '@/components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/auth/useAuth';
 
 const LoginPage = () => {
   const [form] = Form.useForm();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    login();
+    navigate('/dashboard');
+  };
   return (
     <AuthLayout>
-      <Form form={form} layout="vertical" className="space-y-10" validateTrigger={['onSubmit']}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleLogin}
+        className="space-y-10"
+        validateTrigger={['onSubmit']}
+      >
         <h1 className="text-center text-4xl font-semibold">Welcome Back!</h1>
         <div>
           {/* Email */}
@@ -62,7 +76,7 @@ const LoginPage = () => {
             </Item>
           </div>
 
-          <Button htmlType="submit" block>
+          <Button className="bg-red-200" htmlType="submit" block>
             Sign In
           </Button>
 

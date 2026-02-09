@@ -1,10 +1,14 @@
-import { PrivateLayout } from '@/components';
-import { Outlet } from 'react-router-dom';
+import { useAuth } from '@/context/auth/useAuth';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export const AuthGate = () => {
+export const PublicGate = () => {
+  const { isAuthenticated } = useAuth();
+  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
   return <Outlet />;
 };
 
 export const PrivateGate = () => {
-  return <PrivateLayout />;
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return <Outlet />;
 };
