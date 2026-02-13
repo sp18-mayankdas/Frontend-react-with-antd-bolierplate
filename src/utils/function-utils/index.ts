@@ -1,7 +1,7 @@
-import theme from '@theme/theme.json';
+import type { Theme } from '@/theme/types';
+import themeConfig from '@/theme/theme.json';
 
-export function generateCssVariables() {
-  const cssVars = theme;
+export function applyCssVariables(theme: Theme = themeConfig as Theme) {
   const root = document.documentElement;
 
   const setCSSVariables = (obj: Record<string, any>, prefix = '') => {
@@ -10,13 +10,13 @@ export function generateCssVariables() {
 
       if (typeof value === 'string' || typeof value === 'number') {
         root.style.setProperty(cssVarName, String(value));
-      } else if (typeof value === 'object' && value !== null) {
+      } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         setCSSVariables(value, prefix ? `${prefix}-${key}` : key);
       }
     });
   };
 
-  setCSSVariables(cssVars);
+  setCSSVariables(theme);
 }
 
 // debounce

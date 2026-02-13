@@ -76,7 +76,7 @@ const LoginPage = () => {
             </Item>
           </div>
 
-          <Button className="bg-red-200" htmlType="submit" block>
+          <Button htmlType="submit" block>
             Sign In
           </Button>
 

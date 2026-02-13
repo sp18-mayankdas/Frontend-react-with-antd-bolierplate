@@ -1,8 +1,9 @@
 import { App as AntdApp, ConfigProvider, theme as antdTheme, type ThemeConfig } from 'antd';
 import { StyleProvider } from '@ant-design/cssinjs';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import themeConfig from './theme.json';
 import { type Theme } from './types';
+import { applyCssVariables } from '@/utils';
 
 type ThemeProviderProps = {
   theme?: Theme;
@@ -10,8 +11,11 @@ type ThemeProviderProps = {
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children }) => {
-  // Use provided theme or fallback to default theme
   const activeTheme = theme || (themeConfig as Theme);
+
+  useEffect(() => {
+    applyCssVariables(activeTheme);
+  }, [activeTheme]);
 
   const antdTokens: ThemeConfig = useMemo(
     () => ({
@@ -71,7 +75,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children })
           contentFontSizeSM: 14,
 
           // Primary button
-          colorPrimary: activeTheme.button.primary.bg,
+          colorPrimary: '#1c2fc9',
           colorPrimaryHover: activeTheme.button.primary['hover-bg'],
           colorPrimaryActive: activeTheme.button.primary['active-bg'],
           colorPrimaryBorder: activeTheme.button.primary.border,
@@ -143,7 +147,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme, children })
 
         Form: {
           labelColor: activeTheme.form['label-color'],
-          // labelFontSize: formLabelFontSize,
+          // labelFontSize: parseInt(activeTheme.form['label-font-size']),
           labelRequiredMarkColor: activeTheme.form['label-required-mark-color'],
         },
 
