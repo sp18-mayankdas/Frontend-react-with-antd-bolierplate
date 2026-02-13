@@ -26,18 +26,6 @@ export const LeftMenu = () => {
               Dashboard
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/logs"
-              className={({ isActive }) =>
-                `block px-4 py-2 rounded ${
-                  isActive ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
-                }`
-              }
-            >
-              Logs
-            </NavLink>
-          </li>
         </ul>
       </nav>
 
