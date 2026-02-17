@@ -1,42 +1,34 @@
+import { DashboardOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useAuth } from '@/context/auth/useAuth';
-import { NavLink } from 'react-router-dom';
+import { Button } from '../ui';
+import { NavItem } from './nav-item';
 
 export const LeftMenu = () => {
   const { logout } = useAuth();
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-white">
       {/* Logo */}
-      <div className="p-4 border-b">
-        <h2 className="text-xl font-bold">MyApp</h2>
+      <div className="py-[22px] px-5 border-b border-slate-100">
+        <h2 className="text-xl font-semibold text-slate-800 tracking-tight text-center">
+          Health Dashboard
+        </h2>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
-          <li>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                `block px-4 py-2 rounded ${
-                  isActive ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
-                }`
-              }
-            >
-              Dashboard
-            </NavLink>
-          </li>
-        </ul>
+      <nav className="flex-1 p-4 space-y-3">
+        <NavItem to="/dashboard" icon={<DashboardOutlined />} label="Dashboard" />
       </nav>
 
       {/* Logout */}
-      <div className="p-4 border-t">
-        <button
+      <div className="p-4 border-t border-slate-200">
+        <Button
           onClick={logout}
-          className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          className="w-full text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 transition-all duration-200"
         >
+          <LogoutOutlined />
           Logout
-        </button>
+        </Button>
       </div>
     </div>
   );
