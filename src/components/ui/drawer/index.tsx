@@ -4,8 +4,6 @@ interface DrawerProps extends AntDrawerProps {
   children: React.ReactNode;
 }
 
-const Drawer = ({ children, ...props }: DrawerProps) => {
+export const Drawer = ({ children, ...props }: DrawerProps) => {
   return <AntDrawer {...props}>{children}</AntDrawer>;
 };
-
-export default Drawer;

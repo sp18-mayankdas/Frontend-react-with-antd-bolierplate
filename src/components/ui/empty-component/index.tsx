@@ -9,7 +9,7 @@ interface EmptyComponentProps {
   valueClassName?: string;
 }
 
-const EmptyComponent = ({
+export const EmptyComponent = ({
   title,
   description,
   className = '',
@@ -34,5 +34,3 @@ const EmptyComponent = ({
     </div>
   );
 };
-
-export default EmptyComponent;

@@ -9,10 +9,8 @@ export const LeftMenu = () => {
   return (
     <div className="h-full flex flex-col bg-white">
       {/* Logo */}
-      <div className="py-[22px] px-5 border-b border-slate-100">
-        <h2 className="text-xl font-semibold text-slate-800 tracking-tight text-center">
-          Health Dashboard
-        </h2>
+      <div className="py-[26px] px-5 border-b border-slate-100 flex items-center justify-center">
+        <h2 className="text-xl font-semibold text-slate-800 tracking-tight">Dashboard</h2>
       </div>
 
       {/* Navigation */}

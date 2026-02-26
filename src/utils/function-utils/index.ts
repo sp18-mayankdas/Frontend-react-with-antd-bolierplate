@@ -30,3 +30,52 @@ export const debounceMethod = <T extends (...args: any[]) => void>(func: T, dela
     }, delay);
   };
 };
+
+// User specific functions
+export const getDisplayName = (user: any) => {
+  if (user?.fullName) return user?.fullName;
+  if (user?.firstName && user?.lastName) return `${user?.firstName} ${user?.lastName}`;
+  if (user?.firstName) return user?.firstName;
+  if (user?.lastName) return user?.lastName;
+  return 'Unknown User';
+};
+
+export const getUserName = (user: any): string => {
+  if (!user) return 'User';
+  return user?.firstName ? user?.firstName : user?.fullName || user?.lastName || 'User';
+};
+
+export const getUserProfilePic = (user: any): string => {
+  if (!user) return '';
+  return user?.profilePic ?? user?.profilePicture ?? user?.profilePic ?? '';
+};
+
+export const handleDownload = (url: string, fileName: string, canDownload: boolean) => {
+  if (!canDownload) return;
+
+  const aTag = document.createElement('a');
+  aTag.href = url;
+  aTag.download = fileName;
+  aTag.target = '_blank';
+  document.body.appendChild(aTag);
+  aTag.click();
+  document.body.removeChild(aTag);
+};
+
+export const getFileNameFromUrl = (url: string): string => {
+  const tempName = url.substring(url?.lastIndexOf('/') + 1);
+  const decoded = decodeURIComponent(tempName);
+  const dashIndex = decoded.indexOf('-');
+
+  if (dashIndex > 0 && /^[a-f0-9]{8,}-/i.test(decoded.substring(0, dashIndex + 1))) {
+    return decoded.substring(dashIndex + 1).trim();
+  }
+  return decoded;
+};
+
+export const formatFileSize = (bytes?: number): string => {
+  if (!bytes) return '';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+};
