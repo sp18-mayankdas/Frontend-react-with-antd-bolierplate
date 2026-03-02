@@ -39,11 +39,11 @@ export const Select: React.FC<ISelectProps & { borderless?: boolean }> = ({
       className={cn(
         className,
         {
-          '[&>.ant-select-selector]:!border-0 [&>.ant-select-selector]:!shadow-none [&_.ant-select-arrow]:!text-[var(--color-black-50)]':
+          '[&>.ant-select-selector]:border-0! [&>.ant-select-selector]:shadow-none! [&_.ant-select-arrow]:text-(--color-black-50)!':
             borderless,
         },
         {
-          '[&>.ant-select-selector]:!bg-[#5E636614] [&>.ant-select-selector]:!border-0  [&>.ant-select-selector]:!shadow-none':
+          '[&>.ant-select-selector]:bg-[#5E636614]! [&>.ant-select-selector]:border-0!  [&>.ant-select-selector]:shadow-none!':
             type === 'filled',
         }
       )}
