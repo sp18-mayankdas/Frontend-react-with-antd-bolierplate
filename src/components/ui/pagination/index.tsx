@@ -46,7 +46,6 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
             onChange={handlePageSizeChange}
             size="middle"
             className="w-16"
-            // suffixIcon={<DownOutlined className="text-xs" />}
             options={[
               { label: '10', value: 10 },
               { label: '12', value: 12 },
@@ -68,7 +67,6 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
             value={current}
             onChange={handlePageChange}
             className="w-16"
-            // suffixIcon={<DownOutlined className="text-xs" />}
             options={pageOptions}
           />
           <span className="text-sm text-gray-600">of {totalPages} pages</span>
