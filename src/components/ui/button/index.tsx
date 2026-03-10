@@ -1,19 +1,16 @@
 import { cn } from '@/utils';
 import { Button as AntButton, type ButtonProps as AntButtonProps } from 'antd';
-import React from 'react';
 
-export type ButtonProps = AntButtonProps;
+export type { AntButtonProps as ButtonProps };
 
-export const Button: React.FC<ButtonProps> = ({
-  size,
-  type,
-  className = '',
+export const Button = ({
+  size = 'large',
+  type = 'primary',
+  className,
   children,
   ...rest
-}) => {
-  return (
-    <AntButton className={cn(className)} size={size ?? 'large'} type={type ?? 'primary'} {...rest}>
-      {children}
-    </AntButton>
-  );
-};
+}: AntButtonProps) => (
+  <AntButton size={size} type={type} className={cn(className)} {...rest}>
+    {children}
+  </AntButton>
+);

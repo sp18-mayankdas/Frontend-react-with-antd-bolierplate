@@ -1,51 +1,49 @@
 import { cn } from '@/utils';
-import React from 'react';
+import type { ReactNode } from 'react';
 
-type InfoItemProps = {
-  heading?: React.ReactNode;
-  value?: React.ReactNode;
-  layout?: 'vertical' | 'inline';
-  extra?: React.ReactNode;
+type Layout = 'vertical' | 'inline';
 
+export interface InfoItemProps {
+  heading?: ReactNode;
+  value?: ReactNode;
+  extra?: ReactNode;
+  layout?: Layout;
   className?: string;
   headingClassName?: string;
   valueClassName?: string;
   extraClassName?: string;
+  children?: ReactNode;
+}
 
-  children?: React.ReactNode;
-};
+/**
+ * A generic label/value display primitive.
+ */
+export const InfoItem = ({
+  heading,
+  value,
+  extra,
+  layout = 'vertical',
+  className,
+  headingClassName,
+  valueClassName,
+  extraClassName,
+  children,
+}: InfoItemProps) => (
+  <div
+    className={cn(
+      'min-w-0',
+      layout === 'inline' ? 'flex items-start justify-between gap-2' : 'flex flex-col',
+      className
+    )}
+  >
+    {heading !== undefined && (
+      <p className={cn('font-medium text-sm text-gray-900', headingClassName)}>{heading}</p>
+    )}
 
-export const InfoItem = (props: InfoItemProps) => {
-  const {
-    heading,
-    value,
-    layout = 'vertical',
-    extra,
-    className,
-    headingClassName,
-    valueClassName,
-    extraClassName,
-    children,
-  } = props;
-  return (
-    <div
-      className={cn(
-        layout === 'inline' ? 'flex items-start justify-between gap-2' : 'flex flex-col ',
-        'min-w-0',
-        className
-      )}
-    >
-      {heading && (
-        <p className={cn('font-medium  font-poppins text-xl mb-4', headingClassName)}>{heading}</p>
-      )}
+    {value !== undefined && <p className={cn('text-sm text-gray-500', valueClassName)}>{value}</p>}
 
-      {value && (
-        <p className={cn('font-normal text-[#6E7079] max-w-full', valueClassName)}>{value}</p>
-      )}
+    {extra !== undefined && <p className={cn('text-xs text-gray-400', extraClassName)}>{extra}</p>}
 
-      {extra && <p className={cn(' font-normal text-xs md:text-sm ', extraClassName)}>{extra}</p>}
-
-      {children}
-    </div>
-  );
-};
+    {children}
+  </div>
+);

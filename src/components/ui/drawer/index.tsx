@@ -1,9 +1,19 @@
+import { cn } from '@/utils';
 import { Drawer as AntDrawer, type DrawerProps as AntDrawerProps } from 'antd';
 
-interface DrawerProps extends AntDrawerProps {
-  children: React.ReactNode;
+export interface DrawerProps extends AntDrawerProps {
+  isOpen?: boolean;
+  width?: number | string;
 }
 
-export const Drawer = ({ children, ...props }: DrawerProps) => {
-  return <AntDrawer {...props}>{children}</AntDrawer>;
-};
+export const Drawer = ({ isOpen, width = 480, className, children, ...rest }: DrawerProps) => (
+  <AntDrawer
+    open={isOpen ?? rest.open}
+    width={width}
+    className={cn(className)}
+    destroyOnHidden
+    {...rest}
+  >
+    {children}
+  </AntDrawer>
+);

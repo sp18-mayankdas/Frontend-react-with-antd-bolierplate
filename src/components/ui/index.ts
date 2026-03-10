@@ -1,7 +1,7 @@
 export { AvatarIcon } from './avatar-icon';
 export { Button } from './button';
 export { Drawer } from './drawer';
-export { EllipsesTooltip } from './ellipsis-tooltip';
+export { EllipsisTooltip } from './ellipsis-tooltip';
 export { EmptyComponent } from './empty-component';
 export * from './form-fields';
 export { InfoItem } from './info-item';

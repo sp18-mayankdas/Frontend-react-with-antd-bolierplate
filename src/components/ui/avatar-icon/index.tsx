@@ -1,79 +1,103 @@
+import { cn } from '@/utils';
 import { UserOutlined } from '@ant-design/icons';
-import { type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
-interface IProps {
-  firstName: string;
-  lastName?: string;
-  color: string;
-  profilePic?: string;
-  profileComponent?: ReactNode;
-  wrapperClassName?: string;
-  wrapperStyle?: React.CSSProperties;
-  contentClassName?: string;
-  contentStyle?: React.CSSProperties;
-  allowFullFirst?: boolean;
-  icon?: ReactNode;
+export interface AvatarIconProps {
+  /** Used to derive initials when no image is provided */
+  name?: string;
+  src?: string;
+  children?: ReactNode;
+  /** Background color for the initials fallback */
+  color?: string;
+  /** Avatar diameter in px */
   size?: number;
+  /**
+   * How to derive initials from `name`:
+   * - `'initials'` → first letter of each word, max 2 (default) — "John Doe" → "JD"
+   * - `'first'`    → first letter only — "John Doe" → "J"
+   * - `'full'`     → full first word — "John Doe" → "John"
+   */
+  nameFormat?: 'initials' | 'first' | 'full';
+  /** Custom icon — shown when name is empty and no image/children are provided */
+  fallbackIcon?: ReactNode;
+  className?: string;
+  imgClassName?: string;
+  style?: CSSProperties;
 }
 
-export const AvatarIcon = (props: IProps) => {
-  const {
-    firstName,
-    lastName,
-    color,
-    profilePic,
-    profileComponent,
-    wrapperClassName,
-    wrapperStyle,
-    contentClassName,
-    allowFullFirst,
-    icon,
-    size = 36,
-  } = props;
+const getInitials = (name: string, format: AvatarIconProps['nameFormat'] = 'initials'): string => {
+  const trimmed = name.trim();
+  if (!trimmed) return '';
 
-  const getInitials = () => {
-    let initial = allowFullFirst ? firstName : firstName?.[0]?.toUpperCase();
-    const firstNameArr = firstName?.split(' ');
-    if (lastName?.[0]) {
-      initial += lastName[0].toUpperCase();
-    } else if (firstNameArr?.length > 1 && !allowFullFirst) {
-      initial += firstNameArr[firstNameArr?.length - 1][0].toUpperCase();
-    }
-    return initial;
-  };
+  if (format === 'full') {
+    return trimmed.split(/\s+/)[0];
+  }
 
-  // Calculate font size based on avatar size (roughly 40% of size)
-  const fontSize = Math.max(12, Math.floor(size * 0.4));
+  const words = trimmed.split(/\s+/);
+
+  if (format === 'first') {
+    return words[0][0].toUpperCase();
+  }
+
+  const first = words[0][0].toUpperCase();
+  const last = words.length > 1 ? words[words.length - 1][0].toUpperCase() : '';
+  return first + last;
+};
+const getFontSize = (size: number): number => Math.max(10, Math.floor(size * 0.38));
+
+export const AvatarIcon = ({
+  name = '',
+  src,
+  children,
+  color = '#e5e7eb',
+  size = 36,
+  nameFormat = 'initials',
+  fallbackIcon,
+  className,
+  imgClassName,
+  style,
+}: AvatarIconProps) => {
+  const dim = { width: size, height: size };
+
+  // Priority 1: custom children
+  if (children) {
+    return (
+      <div
+        className={cn('rounded-full overflow-hidden shrink-0', className)}
+        style={{ ...dim, ...style }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  // Priority 2: image URL
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={name || 'avatar'}
+        className={cn('rounded-full object-cover shrink-0', className, imgClassName)}
+        style={{ ...dim, ...style }}
+      />
+    );
+  }
+
+  // Priority 3: initials or fallback icon
+  const initials = getInitials(name, nameFormat);
+  const fontSize = getFontSize(size);
 
   return (
-    <div className={`${wrapperClassName ?? ''}`} {...(wrapperStyle && { style: wrapperStyle })}>
-      {profileComponent ??
-        (profilePic ? (
-          <img
-            alt={getInitials()}
-            src={profilePic}
-            className={`rounded-full object-cover ${contentClassName ?? ''}`}
-            style={{ width: `${size}px`, height: `${size}px` }}
-          />
-        ) : (
-          <div
-            className={`rounded-full flex items-center justify-center border-3 border-gray-50 font-semibold ${contentClassName ?? ''}`}
-            style={{
-              width: `${size}px`,
-              height: `${size}px`,
-              backgroundColor: color || '#f0f0f0',
-              fontSize: `${fontSize}px`,
-            }}
-          >
-            {icon ? (
-              icon
-            ) : getInitials() ? (
-              getInitials()
-            ) : (
-              <UserOutlined className="text-gray-500" style={{ fontSize: `${fontSize}px` }} />
-            )}
-          </div>
-        ))}
+    <div
+      className={cn(
+        'rounded-full flex items-center justify-center shrink-0 font-semibold select-none',
+        className
+      )}
+      style={{ ...dim, backgroundColor: color, fontSize, color: '#fff', ...style }}
+      aria-label={name || 'avatar'}
+      role="img"
+    >
+      {initials || fallbackIcon || <UserOutlined style={{ fontSize: fontSize * 0.9 }} />}
     </div>
   );
 };

@@ -1,43 +1,55 @@
-import { cn } from '@/utils/cn';
-import { Tooltip as AntdTooltip, type TooltipProps } from 'antd';
+import { cn } from '@/utils';
+import { Tooltip as AntTooltip, type TooltipProps } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 
-type Props = TooltipProps & {
+export interface EllipsisTooltipProps extends Omit<TooltipProps, 'title'> {
+  /** Text to display and show in tooltip when truncated */
   text: string | undefined;
-  ClassName?: string;
-};
+  className?: string;
+  /** Custom tooltip title override — defaults to `text` */
+  tooltipTitle?: TooltipProps['title'];
+}
 
-export const EllipsesTooltip = (props: Props) => {
-  const { text, ClassName, ...rest } = props;
-
-  const childRef = useRef<HTMLParagraphElement>(null);
-  const [isEllipsisActive, setIsEllipsisActive] = useState(false);
+/**
+ * Renders text truncated with ellipsis.
+ * Only shows the tooltip when the text is actually overflowing — no unnecessary tooltips.
+ */
+export const EllipsisTooltip = ({
+  text,
+  className,
+  tooltipTitle,
+  placement = 'top',
+  ...rest
+}: EllipsisTooltipProps) => {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
 
   useEffect(() => {
-    if (childRef.current && childRef.current.offsetWidth < childRef.current.scrollWidth) {
-      setIsEllipsisActive(true);
-    } else {
-      setIsEllipsisActive(false);
+    const el = ref.current;
+
+    let observer: ResizeObserver | undefined;
+
+    if (el) {
+      observer = new ResizeObserver(() => {
+        setIsTruncated(el.scrollWidth > el.offsetWidth);
+      });
+      observer.observe(el);
     }
-  });
+
+    return () => {
+      observer?.disconnect();
+    };
+  }, [text]);
 
   return (
-    <AntdTooltip
-      title={isEllipsisActive ? text : undefined}
+    <AntTooltip
+      title={isTruncated ? (tooltipTitle ?? text) : undefined}
+      placement={placement}
       {...rest}
-      placement={rest.placement ?? 'top'}
     >
-      <p
-        style={{
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-          overflow: 'hidden',
-        }}
-        ref={childRef}
-        className={cn(ClassName)}
-      >
-        {text ?? '--'}
+      <p ref={ref} className={cn('truncate', className)}>
+        {text ?? '—'}
       </p>
-    </AntdTooltip>
+    </AntTooltip>
   );
 };

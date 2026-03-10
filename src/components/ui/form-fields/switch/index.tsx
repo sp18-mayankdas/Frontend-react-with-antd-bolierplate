@@ -1,9 +1,8 @@
 import { cn } from '@/utils';
 import { Switch as AntSwitch, type SwitchProps as AntSwitchProps } from 'antd';
-import React from 'react';
 
-export type SwitchProps = AntSwitchProps;
+export type { AntSwitchProps as SwitchProps };
 
-export const Switch: React.FC<SwitchProps> = ({ className = '', ...rest }) => {
-  return <AntSwitch {...rest} className={cn(className)} />;
-};
+export const Switch = ({ className, ...rest }: AntSwitchProps) => (
+  <AntSwitch className={cn(className)} {...rest} />
+);

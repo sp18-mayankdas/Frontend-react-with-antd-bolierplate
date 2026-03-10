@@ -20,15 +20,24 @@ export function applyCssVariables(theme: Theme = themeConfig as Theme) {
 }
 
 // debounce
-export const debounceMethod = <T extends (...args: any[]) => void>(func: T, delay = 500) => {
-  let timer: ReturnType<typeof setTimeout>;
+/**
+ * Returns a debounced version of `fn` that delays execution by `delay` ms.
+ * The returned function also exposes a `.cancel()` method to clear any pending call —
+ */
+export const debounce = <T extends (...args: Parameters<T>) => void>(fn: T, delay = 500) => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
 
-  return (...args: Parameters<T>) => {
+  const debounced = (...args: Parameters<T>) => {
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      func(...args);
-    }, delay);
+    timer = setTimeout(() => fn(...args), delay);
   };
+
+  debounced.cancel = () => {
+    clearTimeout(timer);
+    timer = undefined;
+  };
+
+  return debounced;
 };
 
 // User specific functions

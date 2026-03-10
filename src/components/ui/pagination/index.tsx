@@ -44,7 +44,6 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
           <Select
             value={pageSize}
             onChange={handlePageSizeChange}
-            type="filled"
             size="middle"
             className="w-16"
             // suffixIcon={<DownOutlined className="text-xs" />}
@@ -65,7 +64,6 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
         {/* Right side - Page navigation */}
         <div className="flex items-center gap-2">
           <Select
-            type="filled"
             size="middle"
             value={current}
             onChange={handlePageChange}

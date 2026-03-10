@@ -19,11 +19,10 @@ export const PrivateLayout = () => {
         <div className="flex items-center gap-2 px-1 py-3 border-b border-slate-200">
           <div>
             <AvatarIcon
-              firstName={getUserName(user) || 'User'}
-              lastName={user?.lastName ?? ''}
+              name={getUserName(user) || 'User'}
               color={user?.rgbIcon || 'var(--color-bg-avatar-default)'}
-              profilePic={getUserProfilePic(user) || ''}
-              wrapperClassName="cursor-pointer text-white"
+              src={getUserProfilePic(user) || ''}
+              className="cursor-pointer text-white"
               size={54}
             />
           </div>
@@ -58,11 +57,11 @@ export const PrivateLayout = () => {
             >
               <div>
                 <AvatarIcon
-                  firstName={getUserName(user) || 'User'}
-                  lastName={user?.lastName ?? ''}
+                  name={getUserName(user) || 'User'}
+                  nameFormat="initials"
                   color={user?.rgbIcon || 'var(--color-bg-avatar-default)'}
-                  profilePic={getUserProfilePic(user) || ''}
-                  wrapperClassName="cursor-pointer text-white"
+                  src={getUserProfilePic(user) || ''}
+                  className="cursor-pointer text-white"
                 />
               </div>
             </Dropdown>

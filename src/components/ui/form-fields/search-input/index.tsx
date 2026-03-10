@@ -1,58 +1,70 @@
-// components/search-bar/index.tsx
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Input } from '..';
-import SearchIcon from '@/assets/Search.svg?react';
-import { debounceMethod } from '@/utils';
+import { useEffect, useRef, useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
+import { cn, debounce } from '@/utils';
+import { Input } from '../input';
 
-interface ISearchProps {
-  placeholder: string;
+export interface SearchInputProps {
+  placeholder?: string;
   className?: string;
+  /** Controlled value — syncs internal state when changed externally */
   value?: string;
   onChange?: (value: string) => void;
+  /** Debounce delay in ms — set to 0 to disable debouncing */
   delay?: number;
+  /** Override the search prefix icon — pass `null` to remove it */
+  prefix?: React.ReactNode;
+  disabled?: boolean;
+  /** Max length of the search input */
+  maxLength?: number;
 }
 
 export const SearchInput = ({
-  placeholder,
+  placeholder = 'Search...',
   className,
   value,
   onChange,
   delay = 500,
-}: ISearchProps) => {
-  const [searchValue, setSearchValue] = useState(value || '');
+  prefix = <SearchOutlined />,
+  disabled,
+  maxLength,
+}: SearchInputProps) => {
+  const [searchValue, setSearchValue] = useState(value ?? '');
 
-  // debounced onChange function -> Prevent recreation of the function
-  const debouncedOnChange = useMemo(
-    () =>
-      debounceMethod((debouncedValue: string) => {
-        onChange?.(debouncedValue);
-      }, delay),
-    [onChange, delay]
-  );
+  const debouncedOnChange = useRef(debounce((val: string) => onChange?.(val), delay));
 
-  // Update internal value when external value changes
+  // Recreate the debounced function only when delay changes, and cancel the previous pending call to prevent stale invocations.
   useEffect(() => {
-    setSearchValue(value || '');
+    debouncedOnChange.current.cancel();
+    debouncedOnChange.current = debounce((val: string) => onChange?.(val), delay);
+  }, [delay, onChange]);
+
+  // Cancel any pending debounced call on unmount
+  useEffect(() => {
+    const debounced = debouncedOnChange.current;
+    return () => debounced.cancel();
+  }, []);
+
+  // Sync internal state when controlled value changes from outside
+  useEffect(() => {
+    setSearchValue(value ?? '');
   }, [value]);
 
-  const handleInputChange = useCallback(
-    (inputValue: string) => {
-      setSearchValue(inputValue);
-      debouncedOnChange(inputValue);
-    },
-    [debouncedOnChange]
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const next = e.target.value;
+    setSearchValue(next);
+    debouncedOnChange.current(next);
+  };
 
   return (
-    <>
-      <Input
-        variant="outlined"
-        className={className}
-        placeholder={placeholder}
-        prefix={<SearchIcon />}
-        value={searchValue}
-        onChange={(e) => handleInputChange(e.target.value)}
-      />
-    </>
+    <Input
+      variant="outlined"
+      placeholder={placeholder}
+      prefix={prefix}
+      value={searchValue}
+      onChange={handleChange}
+      disabled={disabled}
+      maxLength={maxLength}
+      className={cn('w-full', className)}
+    />
   );
 };

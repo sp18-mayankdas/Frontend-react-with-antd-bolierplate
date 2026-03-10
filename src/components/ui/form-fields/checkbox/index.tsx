@@ -1,20 +1,18 @@
 import { cn } from '@/utils';
-import { Checkbox as AntCheckbox, type CheckboxProps as AntchecboxProps } from 'antd';
+import { Checkbox as AntCheckbox, type CheckboxProps as AntCheckboxProps } from 'antd';
 import type { CheckboxGroupProps as AntCheckboxGroupProps } from 'antd/es/checkbox';
 
-export const Checkbox = (props: AntchecboxProps) => {
-  const { children, className, ...rest } = props;
+export type { AntCheckboxProps as CheckboxProps };
+export type { AntCheckboxGroupProps as CheckboxGroupProps };
 
-  return (
-    <AntCheckbox className={cn(className)} {...rest}>
-      {children}
-    </AntCheckbox>
-  );
-};
+const Group = ({ className, ...rest }: AntCheckboxGroupProps) => (
+  <AntCheckbox.Group className={cn(className)} {...rest} />
+);
 
-const Group = (props: AntCheckboxGroupProps) => {
-  const { className, ...rest } = props;
-  return <AntCheckbox.Group className={cn(className)} {...rest} />;
-};
+export const Checkbox = ({ className, children, ...rest }: AntCheckboxProps) => (
+  <AntCheckbox className={cn(className)} {...rest}>
+    {children}
+  </AntCheckbox>
+);
 
 Checkbox.Group = Group;

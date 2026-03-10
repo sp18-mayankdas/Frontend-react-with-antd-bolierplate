@@ -6,4 +6,3 @@ export { Radio } from './radio';
 export { SearchInput } from './search-input';
 export { Select } from './select';
 export { Switch } from './switch';
-export { TextArea } from './text-area';
